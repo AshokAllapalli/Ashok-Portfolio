@@ -273,7 +273,7 @@ export default function Hero() {
                   <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-2xl group-hover:shadow-blue-500/50 transition-all duration-500 group-hover:scale-105">
                     {/* Image */}
                     <img
-                      src="/photos/ashok.png"
+                      src="/photos/ashok-1.jpg"
                       alt="Ashok Allapalli"
                       className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
                     />
