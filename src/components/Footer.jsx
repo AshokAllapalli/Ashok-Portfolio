@@ -82,15 +82,15 @@ function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-gray-300 group">
                 <MapPin className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
-                <span>123 Web Street, Digital City, IN 12345</span>
+                <span>Anantapur District, Andhra Pradesh</span>
               </li>
               <li className="flex items-center gap-3 text-gray-300 group">
                 <Phone className="w-5 h-5 text-blue-400 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
-                <span>+91 98765 43210</span>
+                <span>+91 7032414961</span>
               </li>
               <li className="flex items-center gap-3 text-gray-300 group">
                 <Mail className="w-5 h-5 text-blue-400 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
-                <span>hello@myportfolio.com</span>
+                <span>ashokallapalli790@gmail.com</span>
               </li>
             </ul>
           </div>
