@@ -15,89 +15,101 @@ import {
 function Projects() {
   // Add a real screenshot URL to `image` for any project whenever it's ready.
   // Leave it as "" until then — the icon will display automatically.
-  const projects = [
+const projects = [
+  {
+    id: 1,
+    title: "Bounce Cure",
+    description:
+      "Email verification & marketing automation platform with bulk verification, campaigns, and payment processing.",
+    technologies: ["React", "Node.js", "Prisma", "MySQL"],
+    link: "https://www.bouncecure.com/",
+    image: "/projects/bounce cure.png",
+    icon: <Mail className="w-7 h-7" />,
+  },
+  {
+    id: 2,
+    title: "School ERP System",
+    description:
+      "Multi-school SaaS platform for academic and administrative operations with role-based access control.",
+    technologies: ["React", "Node.js", "Prisma", "AWS S3"],
+    link: "https://www.eduabaccotech.com/",
+    image: "/projects/school-1.png",
+    icon: <GraduationCap className="w-7 h-7" />,
+  },
+  {
+    id: 3,
+    title: "Auto Garage CRM",
+    description:
+      "Vehicle service & workshop management system with OCR scanning, GPS tracking, and billing.",
+    technologies: ["React", "Node.js", "Express", "MySQL"],
+    link: "https://themotordesk.com/",
+    image: "/projects/autogarage.png",
+    icon: <Wrench className="w-7 h-7" />,
+  },
+
+
+  {
+    id: 8,
+    title: "Client Hub Solutions",
+    description:
+      "Business website for managing and showcasing client-facing services and solutions.",
+    technologies: ["React", "Express", "Node.js"],
+    link: "#",
+    image: "/projects/CHS.png",
+    icon: <Users2 className="w-7 h-7" />,
+  },
     {
-      id: 1,
-      title: "Bounce Cure",
-      description: "Email verification & marketing automation platform with bulk verification, campaigns, and payment processing.",
-      technologies: ["React", "Node.js", "Prisma", "MySQL"],
-      link: "#",
-      image: "/projects/bounce cure.png",
-      icon: <Mail className="w-7 h-7" />
-    },
+    id: 7,
+    title: "IBS – International Business Solutions",
+    description:
+      "Corporate business website presenting services, offerings, and company information.",
+    technologies: ["React", "Tailwind CSS", "Node.js"],
+    link: "#",
+    image: "/projects/ibs.png",
+    icon: <Briefcase className="w-7 h-7" />,
+  },
+  {
+    id: 9,
+    title: "World Connect Leads",
+    description:
+      "Lead generation business website designed to capture and manage incoming enquiries.",
+    technologies: ["React", "Node.js", "REST API"],
+    link: "#",
+    image: "/projects/wcl.png",
+    icon: <Link2 className="w-7 h-7" />,
+  },
     {
-      id: 2,
-      title: "School ERP System",
-      description: "Multi-school SaaS platform for academic and administrative operations with role-based access control.",
-      technologies: ["React", "Node.js", "Prisma", "AWS S3"],
-      link: "#",
-      image: "/images/projects/school-erp.png",
-      icon: <GraduationCap className="w-7 h-7" />
-    },
-    {
-      id: 3,
-      title: "Auto Garage CRM",
-      description: "Vehicle service & workshop management system with OCR scanning, GPS tracking, and billing.",
-      technologies: ["React", "Node.js", "Express", "MySQL"],
-      link: "#",
-      image: "/images/projects/auto-garage-crm.png",
-      icon: <Wrench className="w-7 h-7" />
-    },
-    {
-      id: 4,
-      title: "Restaurant Website",
-      description: "Responsive business website for a restaurant with menu showcase and online enquiry features.",
-      technologies: ["React", "Vite", "Tailwind CSS"],
-      link: "#",
-      image: "/images/projects/restaurant-website.png",
-      icon: <UtensilsCrossed className="w-7 h-7" />
-    },
-    {
-      id: 5,
-      title: "Hospital Website",
-      description: "Business website for a hospital featuring departments, doctor listings, and appointment enquiries.",
-      technologies: ["React", "HTML5", "CSS3"],
-      link: "#",
-      image: "",
-      icon: <HeartPulse className="w-7 h-7" />
-    },
-    {
-      id: 6,
-      title: "Email Campaign Marketing",
-      description: "Marketing website built for running and showcasing email campaign services for clients.",
-      technologies: ["React", "Node.js", "SendGrid"],
-      link: "#",
-      image: "",
-      icon: <Megaphone className="w-7 h-7" />
-    },
-    {
-      id: 7,
-      title: "IBS – International Business Solutions",
-      description: "Corporate business website presenting services, offerings, and company information.",
-      technologies: ["React", "Tailwind CSS", "Node.js"],
-      link: "#",
-      image: "",
-      icon: <Briefcase className="w-7 h-7" />
-    },
-    {
-      id: 8,
-      title: "Client Hub Solutions",
-      description: "Business website for managing and showcasing client-facing services and solutions.",
-      technologies: ["React", "Express", "Node.js"],
-      link: "#",
-      image: "",
-      icon: <Users2 className="w-7 h-7" />
-    },
-    {
-      id: 9,
-      title: "World Connect Leads",
-      description: "Lead generation business website designed to capture and manage incoming enquiries.",
-      technologies: ["React", "Node.js", "REST API"],
-      link: "#",
-      image: "",
-      icon: <Link2 className="w-7 h-7" />
-    }
-  ];
+    id: 4,
+    title: "Restaurant Website",
+    description:
+      "Responsive business website for a restaurant with menu showcase and online enquiry features.",
+    technologies: ["React", "Vite", "Tailwind CSS"],
+    link: "#",
+    image: "", // Change if you have a restaurant image
+    icon: <UtensilsCrossed className="w-7 h-7" />,
+  },
+  {
+    id: 5,
+    title: "Hospital Website",
+    description:
+      "Business website for a hospital featuring departments, doctor listings, and appointment enquiries.",
+    technologies: ["React", "HTML5", "CSS3"],
+    link: "#",
+    image: "",
+    icon: <HeartPulse className="w-7 h-7" />,
+  },
+  
+  {
+    id: 6,
+    title: "Email Campaign Marketing",
+    description:
+      "Marketing website built for running and showcasing email campaign services for clients.",
+    technologies: ["React", "Node.js", "SendGrid"],
+    link: "https://abaccomarketing.onrender.com",
+    image: "",
+    icon: <Megaphone className="w-7 h-7" />,
+  },
+];
 
   // Tracks which project images failed to load (or were never provided),
   // so we can fall back to the icon instead.

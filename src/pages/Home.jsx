@@ -256,17 +256,17 @@ export default function Hero() {
             >
               <div className="relative group">
                 {/* Outer Glow Ring - Animated */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-all duration-500 animate-pulse"></div>
+                <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 via-blue-600 to-blue-600 rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-all duration-500 animate-pulse"></div>
                 
                 {/* Rotating Border */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full opacity-75 group-hover:opacity-100 transition-opacity duration-500 animate-spin-slow"></div>
+                <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500 rounded-full opacity-75 group-hover:opacity-100 transition-opacity duration-500 animate-spin-slow"></div>
                 
                 {/* Inner Container */}
                 <div className="relative w-72 h-52 md:w-96 md:h-96">
                   {/* Geometric Shapes Background */}
                   <div className="absolute inset-0 rounded-full overflow-hidden">
                     <div className="absolute top-0 left-0 w-20 h-20 bg-blue-400 rounded-full blur-xl opacity-60 group-hover:scale-150 transition-transform duration-700"></div>
-                    <div className="absolute bottom-0 right-0 w-24 h-24 bg-purple-400 rounded-full blur-xl opacity-60 group-hover:scale-150 transition-transform duration-700"></div>
+                    <div className="absolute bottom-0 right-0 w-24 h-24 bg-blue-400 rounded-full blur-xl opacity-60 group-hover:scale-150 transition-transform duration-700"></div>
                   </div>
 
                   {/* Main Image Container */}
@@ -298,13 +298,7 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* Orbiting Particles */}
-                <div className="absolute inset-0 animate-spin-slow">
-                  <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-500 rounded-full shadow-lg shadow-blue-500/50"></div>
-                </div>
-                <div className="absolute inset-0 animate-spin-slow animation-delay-2000">
-                  <div className="absolute bottom-0 left-1/2 w-3 h-3 bg-purple-500 rounded-full shadow-lg shadow-purple-500/50"></div>
-                </div>
+            
               </div>
             </div>
 
