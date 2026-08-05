@@ -51,9 +51,14 @@ export default function Hero() {
           <div className="flex justify-between items-center">
             {/* Logo */}
             <div className="flex items-center space-x-2 group cursor-pointer">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-400 rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                <Code className="w-6 h-6 text-white" />
-              </div>
+              <div className="relative">
+             <img
+                src="/photos/ashok-1.ico"
+                alt="Profile"
+                className="w-11 h-11 rounded-full object-cover border-2 border-blue-500 shadow-lg"
+              />
+              <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+            </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
                 <a href="#home">Ashok Allapalli</a>
               </h1>

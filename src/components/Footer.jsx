@@ -12,10 +12,10 @@ function Footer() {
   ];
 
   const socialLinks = [
-    { name: 'LinkedIn', href: '#', icon: Linkedin, color: 'hover:bg-blue-600' },
-    { name: 'GitHub', href: '#', icon: Github, color: 'hover:bg-gray-800' },
-    { name: 'Twitter', href: '#', icon: Twitter, color: 'hover:bg-blue-400' },
-    { name: 'Instagram', href: '#', icon: Instagram, color: 'hover:bg-pink-600' }
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/ashok-allapalli-592b66301', icon: Linkedin, color: 'hover:bg-blue-600' },
+    { name: 'GitHub', href: 'https://github.com/AshokAllapalli', icon: Github, color: 'hover:bg-gray-800' },
+    // { name: 'Twitter', href: 'https://twitter.com/ashokallapalli', icon: Twitter, color: 'hover:bg-blue-400' },
+    { name: 'Instagram', href: 'https://www.instagram.com/ashok_gowd_53/', icon: Instagram, color: 'hover:bg-pink-600' }
   ];
 
   return (
@@ -42,6 +42,8 @@ function Footer() {
                   <a
                     key={social.name}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 ${social.color} group`}
                     aria-label={social.name}
                   >

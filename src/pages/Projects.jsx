@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   ExternalLink,
+  FileText,
   Mail,
   GraduationCap,
   Wrench,
@@ -25,6 +27,7 @@ const projects = [
     link: "https://www.bouncecure.com/",
     image: "/projects/bounce cure.png",
     icon: <Mail className="w-7 h-7" />,
+    caseStudySlug: "bounce-cure",
   },
   {
     id: 2,
@@ -35,6 +38,7 @@ const projects = [
     link: "https://www.eduabaccotech.com/",
     image: "/projects/school-1.png",
     icon: <GraduationCap className="w-7 h-7" />,
+    caseStudySlug: "school-erp",
   },
   {
     id: 3,
@@ -45,6 +49,7 @@ const projects = [
     link: "https://themotordesk.com/",
     image: "/projects/autogarage.png",
     icon: <Wrench className="w-7 h-7" />,
+    caseStudySlug: "auto-garage-crm",
   },
 
 
@@ -184,17 +189,43 @@ const projects = [
                   </div>
 
                   {/* Links */}
-                  <div className="flex gap-4 pt-3 border-t border-gray-200">
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-sm font-medium hover:opacity-80 transition-opacity"
-                      style={{ color: '#3c4cfa' }}
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Live Demo
-                    </a>
+                  <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-gray-200">
+                    {project.caseStudySlug ? (
+                      <>
+                        {/* Live Demo now opens the dedicated case study / project details page */}
+                        <RouterLink
+                          to={`/projects/${project.caseStudySlug}`}
+                          className="flex items-center gap-1.5 text-sm font-medium hover:opacity-80 transition-opacity"
+                          style={{ color: '#3c4cfa' }}
+                        >
+                          <FileText className="w-4 h-4" />
+                          Live Demo
+                        </RouterLink>
+
+                        {project.link && project.link !== '#' && (
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            Visit Live Site
+                          </a>
+                        )}
+                      </>
+                    ) : (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-sm font-medium hover:opacity-80 transition-opacity"
+                        style={{ color: '#3c4cfa' }}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

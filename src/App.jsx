@@ -9,6 +9,10 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Skills from "./pages/Skills";
 
+import AutoGarageCRM from "./pages/projects/AutoGarageCRM";
+import BounceCure from "./pages/projects/BounceCure";
+import SchoolERP from "./pages/projects/SchoolERP";
+
 function App() {
   return (
     <Router>
@@ -20,6 +24,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/skills" element={<Skills />} />
+
+        {/* Project case studies */}
+        <Route path="/projects/auto-garage-crm" element={<AutoGarageCRM />} />
+        <Route path="/projects/bounce-cure" element={<BounceCure />} />
+        <Route path="/projects/school-erp" element={<SchoolERP />} />
       </Routes>
 
       <Footer />
