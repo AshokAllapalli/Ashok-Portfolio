@@ -23,11 +23,22 @@ import {
   Phone,
   Send,
 } from "lucide-react";
-
+import { Monitor, Database, Layers } from "lucide-react";
 import About from "./About";
 import Skills from "./Skills";
 import Projects from "./Projects";
 import Contact from "./Contact";
+// import MetallicCube from "../components/originkit/ui/metal-rubics";
+import GlobeAnimation from "../components/originkit/ui/globe";
+
+// Hoisted OUTSIDE the component on purpose. These objects are passed to the
+// globe; if they are re-created on every Hero render, the globe's effect sees
+// new prop identities and tears down + rebuilds the whole scene each time.
+const GLOBE_DOTS = { color: "#93C5FD", size: 5, density: 7, allDots: false };
+const GLOBE_MARKERS = { markers: [], color: "#38BDF8", size: 40 };
+const GLOBE_STYLE = { width: "100%", height: "100%" };
+
+const MemoGlobe = React.memo(GlobeAnimation);
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -187,17 +198,22 @@ export default function Hero() {
                     : "opacity-0 -translate-x-8"
                 }`}
               >
+                {/* Frontend Developer */}
                 <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-50 to-blue-100/50 text-blue-700 rounded-xl border border-blue-200 hover:border-blue-300 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg">
-                  <Code className="w-5 h-5" />
+                  <Monitor className="w-5 h-5" />
                   <span className="font-semibold">Frontend Developer</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-50 to-blue-100/50 text-blue-700 rounded-xl border border-blue-200 hover:border-blue-300 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg">
-                  <Zap className="w-5 h-5" />
-                  <span className="font-semibold">React Specialist</span>
+
+                {/* Backend Developer */}
+                <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-green-50 to-green-100/50 text-green-700 rounded-xl border border-green-200 hover:border-green-300 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg">
+                  <Database className="w-5 h-5" />
+                  <span className="font-semibold">Backend Developer</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-50 to-blue-100/50 text-blue-700 rounded-xl border border-blue-200 hover:border-blue-300 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg">
-                  <Target className="w-5 h-5" />
-                  <span className="font-semibold">UI/UX Enthusiast</span>
+
+                {/* Full Stack Developer */}
+                <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-purple-50 to-purple-100/50 text-purple-700 rounded-xl border border-purple-200 hover:border-purple-300 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg">
+                  <Layers className="w-5 h-5" />
+                  <span className="font-semibold">Full Stack Developer</span>
                 </div>
               </div>
 
@@ -239,7 +255,9 @@ export default function Hero() {
                 </a>
 
                 <a
-                  href="#contact"
+                  href="https://resources.workindia.in/candidate-own-resume/cf2e6f0a-80ee-4e3a-987d-5bb3e5e0e806-ASHOK_ALLAPALLI.pdf"   // put your CV file in public folder
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group relative inline-flex items-center justify-center gap-3 bg-white text-blue-600 px-8 py-4 rounded-xl font-bold border-2 border-blue-600 hover:bg-blue-50 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   <Download className="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" />
@@ -253,7 +271,7 @@ export default function Hero() {
 
             {/* RIGHT SIDE - Image with Advanced Effects */}
             <div
-              className={`flex justify-center lg:justify-end transition-all duration-700 delay-200 ${
+              className={`flex justify-center lg:justify-end transition-all duration-700 delay-200 mt-25 ${
                 isVisible
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 translate-x-8"
@@ -261,30 +279,46 @@ export default function Hero() {
             >
               <div className="relative group">
                 {/* Outer Glow Ring - Animated */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 via-blue-600 to-blue-600 rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-all duration-500 animate-pulse"></div>
-                
-                {/* Rotating Border */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500 rounded-full opacity-75 group-hover:opacity-100 transition-opacity duration-500 animate-spin-slow"></div>
-                
+                 
+              
                 {/* Inner Container */}
-                <div className="relative w-72 h-52 md:w-96 md:h-96">
-                  {/* Geometric Shapes Background */}
-                  <div className="absolute inset-0 rounded-full overflow-hidden">
-                    <div className="absolute top-0 left-0 w-20 h-20 bg-blue-400 rounded-full blur-xl opacity-60 group-hover:scale-150 transition-transform duration-700"></div>
-                    <div className="absolute bottom-0 right-0 w-24 h-24 bg-blue-400 rounded-full blur-xl opacity-60 group-hover:scale-150 transition-transform duration-700"></div>
-                  </div>
+                <div className="relative w-80 h-80 md:w-[26rem] md:h-[26rem] lg:w-[30rem] lg:h-[30rem]">
+               
 
                   {/* Main Image Container */}
-                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-2xl group-hover:shadow-blue-500/50 transition-all duration-500 group-hover:scale-105">
+                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-blue-200/70 shadow-2xl shadow-blue-500/20 cursor-grab active:cursor-grabbing transition-all duration-500 group-hover:scale-105">
                     {/* Image */}
-                    <img
+                    {/* <img
                       src="/photos/ashok-1.jpg"
                       alt="Ashok Allapalli"
                       className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
-                    />
+                    /> */}
+
+                    <MemoGlobe
+                      speed={9.0}
+                      smoothing={7}
+                      scale={9}
+                      dragSpeed={7}
+                      stopOnHover={true}
+                      direction="left"
+                      initialLatitude={20}
+                      initialLongitude={-30}
+                      oceanColor="#0B1E3D"
+                      outlineColor="#60A5FA"
+                      showOutline={true}
+                      outlineWidth={1.5}
+                      showGrid={true}
+                      graticuleColor="rgba(96,165,250,0.22)"
+                      fill="dots"
+                      dots={GLOBE_DOTS}
+                      markerConfig={GLOBE_MARKERS}
+                      style={GLOBE_STYLE}
+                      />
+
+                      
                     
-                    {/* Overlay on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 via-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    {/* Overlay on Hover — pointer-events-none so it never blocks globe drag */}
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blue-600/50 via-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
 
                   {/* Status Indicator */}
