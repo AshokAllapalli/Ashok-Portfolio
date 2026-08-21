@@ -377,6 +377,22 @@ interface DotsConfig {
     density: number;
     allDots: boolean;
 }
+/** A ring of dots orbiting OUTSIDE the globe, in the plane of the screen. */
+interface OrbitRingConfig {
+    /** Off by default so existing usages are unaffected. */
+    enabled?: boolean;
+    /** How many dots go around the ring. */
+    count?: number;
+    color?: string;
+    /** Dot size, 1-10. */
+    size?: number;
+    /** Ring radius as a multiple of the globe radius. 1 = touching the globe. */
+    radius?: number;
+    /** Orbit speed, 0-10. 0 freezes the ring. */
+    speed?: number;
+    direction?: "left" | "right";
+}
+
 interface GlobeProps {
     speed?: number;
     smoothing?: number;
@@ -403,6 +419,8 @@ interface GlobeProps {
     revealImmediately?: boolean;
     /** Logs a per-phase timing breakdown to the console. */
     debug?: boolean;
+    /** Animated ring of dots around the outside of the globe. */
+    orbitRing?: OrbitRingConfig;
     style?: CSSProperties;
 }
 
@@ -428,6 +446,7 @@ export default function Globe({
     detail = 5,
     revealImmediately = false,
     debug = false,
+    orbitRing,
     style,
 }: GlobeProps) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -452,6 +471,16 @@ export default function Globe({
 
     // Marker config is flattened to primitives so an inline object literal in
     // the parent can never re-trigger the (very expensive) build effect.
+    // Flattened to primitives so an inline orbitRing={{...}} in the parent
+    // cannot retrigger the build effect.
+    const ringEnabled = orbitRing?.enabled ?? false;
+    const ringCount = orbitRing?.count ?? 60;
+    const ringColor = orbitRing?.color ?? "#3B82F6";
+    const ringSizeUi = orbitRing?.size ?? 5;
+    const ringRadiusFactor = orbitRing?.radius ?? 1.13;
+    const ringSpeedUi = orbitRing?.speed ?? 3;
+    const ringDirection = orbitRing?.direction ?? "right";
+
     const markerColor = markerConfig.color;
     const markersKey = useMemo(
         () => JSON.stringify(markerConfig.markers ?? []),
@@ -624,6 +653,52 @@ export default function Globe({
                 gratMesh.renderOrder = 0;
                 globeGroup.add(gratMesh);
             }
+        }
+
+        /* ---------- orbiting dot ring (outside the globe) ----------
+         * Lives in the z = 0 plane and spins about the screen normal, so the
+         * dots trace a true circle around the globe's silhouette and always
+         * face the camera. It sits in its own group attached to the scene, not
+         * to globeGroup, so dragging the globe never moves the ring. */
+        let ringGroup: Group | null = null;
+        const ringRgba = parseColorToRgba(ringColor);
+        const ringSpin =
+            ringSpeedUi === 0
+                ? 0
+                : mapLinear(Math.max(0, Math.min(10, ringSpeedUi)), 0, 10, 0, 0.012) *
+                  (ringDirection === "left" ? -1 : 1);
+
+        if (ringEnabled && ringCount > 0 && ringRgba.a > 0) {
+            const ringDotRadius = 0.0025 * Math.max(1, Math.min(10, ringSizeUi));
+            const ringGeometry = track(new SphereGeometry(ringDotRadius, 6, 6));
+            const ringMaterial = track(
+                new MeshBasicMaterial({
+                    color: new Color(ringColor),
+                    transparent: ringRgba.a < 1,
+                    opacity: ringRgba.a,
+                })
+            );
+            const ringInstances = new InstancedMesh(
+                ringGeometry,
+                ringMaterial,
+                ringCount
+            );
+            const ringMatrix = new Matrix4();
+            const orbitRadius = globeRadius * ringRadiusFactor;
+            for (let i = 0; i < ringCount; i++) {
+                const angle = (i / ringCount) * Math.PI * 2;
+                ringMatrix.makeScale(1, 1, 1);
+                ringMatrix.setPosition(
+                    Math.cos(angle) * orbitRadius,
+                    Math.sin(angle) * orbitRadius,
+                    0
+                );
+                ringInstances.setMatrixAt(i, ringMatrix);
+            }
+            ringInstances.instanceMatrix.needsUpdate = true;
+            ringGroup = new Group();
+            ringGroup.add(ringInstances);
+            scene.add(ringGroup);
         }
 
         /* ---------- first paint: sphere + grid go up immediately ---------- */
@@ -1076,6 +1151,12 @@ export default function Globe({
 
             let needsRender = false;
             const threshold = 0.01;
+
+            // The ring keeps turning even while the globe is paused on hover.
+            if (ringGroup && ringSpin !== 0) {
+                ringGroup.rotation.z += ringSpin;
+                needsRender = true;
+            }
             if (
                 !isDragging &&
                 rotationSpeed !== 0 &&
@@ -1118,6 +1199,7 @@ export default function Globe({
                 needsRender = true;
             }
             if (needsRender || rotationSpeed !== 0 || isDragging) {
+                // ring already advanced above
                 globeGroup.rotation.y = rotation.x;
                 globeGroup.rotation.x = rotation.y;
                 renderer.render(scene, camera);
@@ -1127,8 +1209,13 @@ export default function Globe({
                 Math.abs(velocity.y) > threshold;
             const hasLerpDelta =
                 Math.abs(dx) > threshold || Math.abs(dy) > threshold;
+            const ringSpinning = ringGroup !== null && ringSpin !== 0;
             const needsContinue =
-                isDragging || rotationSpeed !== 0 || hasVelocity || hasLerpDelta;
+                isDragging ||
+                rotationSpeed !== 0 ||
+                ringSpinning ||
+                hasVelocity ||
+                hasLerpDelta;
             if (needsContinue) {
                 animationFrameId = requestAnimationFrame(animate);
             } else {
@@ -1167,7 +1254,7 @@ export default function Globe({
         };
         document.addEventListener("visibilitychange", handleVisibility);
 
-        if (rotationSpeed !== 0) startAnimation();
+        if (rotationSpeed !== 0 || (ringGroup && ringSpin !== 0)) startAnimation();
 
         /* ---------- drag ---------- */
         const handleMouseDown = (event: MouseEvent) => {
@@ -1326,6 +1413,13 @@ export default function Globe({
         detail,
         revealImmediately,
         debug,
+        ringEnabled,
+        ringCount,
+        ringColor,
+        ringSizeUi,
+        ringRadiusFactor,
+        ringSpeedUi,
+        ringDirection,
         rotationSpeed,
         dotSpacing,
         dotSizeMultiplier,

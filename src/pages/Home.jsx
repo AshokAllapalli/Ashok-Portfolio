@@ -38,6 +38,17 @@ const GLOBE_DOTS = { color: "#93C5FD", size: 5, density: 7, allDots: false };
 const GLOBE_MARKERS = { markers: [], color: "#38BDF8", size: 40 };
 const GLOBE_STYLE = { width: "100%", height: "100%" };
 
+// Orbiting blue dot ring around the outside of the globe.
+const GLOBE_RING = {
+  enabled: true,
+  count: 60,        // number of dots around the circle
+  color: "#3B82F6", // blue-500, matches the heading + buttons
+  size: 5,          // dot size, 1-10
+  radius: 1.13,     // multiple of the globe radius
+  speed: 3,         // orbit speed, 0-10
+  direction: "right",
+};
+
 const MemoGlobe = React.memo(GlobeAnimation);
 
 export default function Hero() {
@@ -313,6 +324,7 @@ export default function Hero() {
                       dots={GLOBE_DOTS}
                       markerConfig={GLOBE_MARKERS}
                       style={GLOBE_STYLE}
+                      orbitRing={GLOBE_RING}
                       />
 
                       
